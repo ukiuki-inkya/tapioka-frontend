@@ -18,7 +18,7 @@
       </label>
     </div>
 
-    <div v-else>
+    <div v-else class="home__image-selected">
       <div class="home__image-preview">
         <img class="home__image-preview-image" :src="image" alt="selected image">
         <button class="home__small-button" @click="clearImage">
@@ -31,6 +31,7 @@
         診断する
       </button>
     </div>
+    <div class="home__background-bottom"></div>
   </section>
 </template>
 
@@ -88,6 +89,7 @@ export default {
   .container {
     text-align: center;
     padding-bottom: 80px;
+    min-height: 100%;
   }
   .home {
     &__title {
@@ -154,6 +156,10 @@ export default {
     &__image-selector {
       display: none;
     }
+    &__image-selected {
+      max-width: 480px;
+      margin: 0 auto;
+    }
     &__image-preview {
       background-color: #F7F2E5;
       border-radius: 8px;
@@ -164,6 +170,15 @@ export default {
       width: 100%;
       border-radius: 4px;
     }
-
+    &__background-bottom {
+      position: absolute;
+      bottom: 0;
+      background-image: url('~assets/images/background-bottom.png');
+      background-position: bottom left;
+      background-repeat: repeat-x;
+      background-size: 320px 183px;
+      height: 188px;
+      width: 100%;
+    }
   }
 </style>
