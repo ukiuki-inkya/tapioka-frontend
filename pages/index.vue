@@ -94,7 +94,11 @@ export default {
   .container {
     text-align: center;
     padding-bottom: 80px;
-    min-height: 100%;
+    min-height: 100vh;
+    background-image: url(/_nuxt/assets/images/background-bottom.png);
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    background-size: 320px 183px;
   }
   .home {
     &__title {
