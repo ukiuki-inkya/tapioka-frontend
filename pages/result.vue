@@ -87,6 +87,10 @@ export default {
   },
 
   methods: {
+    navigateTop() {
+      this.$router.push('/')
+    },
+
     initTapiokas() {
       this.tapiokas = []
       this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: '', color: 'black' })
@@ -184,6 +188,10 @@ export default {
   .container {
     text-align: center;
     padding-bottom: 80px;
+  }
+  .chartarea {
+    display: flex;
+    justify-content: center;
   }
   .home {
     &__title {
