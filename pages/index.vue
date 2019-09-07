@@ -38,7 +38,6 @@
         </button>
       </template>
     </div>
-    <div class="home__background-bottom" />
   </section>
 </template>
 
@@ -188,16 +187,6 @@ export default {
     &__image-preview-image {
       width: 100%;
       border-radius: 4px;
-    }
-    &__background-bottom {
-      position: absolute;
-      bottom: 0;
-      background-image: url('~assets/images/background-bottom.png');
-      background-position: bottom left;
-      background-repeat: repeat-x;
-      background-size: 320px 183px;
-      height: 188px;
-      width: 100%;
     }
   }
 </style>
