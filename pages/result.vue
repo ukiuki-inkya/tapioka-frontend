@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <apexchart width="500" type="radar" :options="options" :series="series" />
+  <section class="container">
+    <h1 class="home__title" @click="navigateTop">
+      <img class="home__title-image" src="~/assets/icons/logo.png" alt="タピオカ診断">
+      タピオカ診断
+    </h1>
+
+    <apexchart width="400px" height="400px" type="radar" :options="options" :series="series" />
     <div class="wrapper">
       <canvas
         id="canvas"
@@ -11,7 +16,7 @@
         @click="onCanvasClick"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -50,12 +55,12 @@ export default {
         },
         xaxis: {
           categories: ['やさしい', '冷静', 'うちき', 'ナルシスト', '元気']
+        },
+        yaxis: {
+          show: false
         }
       },
-      series: [{
-        name: 'series-1',
-        data: [0.3, 0.1, 0.1, 0.3, 0.2]
-      }]
+      series: []
     }
   },
 
@@ -63,6 +68,17 @@ export default {
     this.canvas = this.$refs.canvas
     this.ctx = this.canvas.getContext('2d')
 
+    console.log(this.$store.state.tapis.result)
+    this.series.push({
+      name: 'tapioka',
+      data: [
+        this.$store.state.tapis.result.yasashi,
+        this.$store.state.tapis.result.reisei,
+        this.$store.state.tapis.result.uchiki,
+        this.$store.state.tapis.result.narushisuto,
+        this.$store.state.tapis.result.genki
+      ]
+    })
     this.initTapiokas()
 
     this.loop()
@@ -162,7 +178,89 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  .container {
+    text-align: center;
+    padding-bottom: 80px;
+  }
+  .home {
+    &__title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+    &__title-image {
+      height: 80px;
+    }
+    &__large-button {
+      width: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #403836;
+      color: #f8f8f8;
+      border-radius: 8px;
+      border: none;
+      padding: 16px 32px;
+      margin: 16px auto;
+      font-size: 24px;
+    }
+    &__large-button-icon {
+      width: 32px;
+      margin-right: 16px;
+    }
+    &__image-selector-wrapper label {
+      background-color: #403836;
+      border-radius: 8px;
+      border: none;
+    }
+    &__small-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #C0B4A9;
+      border-radius: 8px;
+      border: none;
+      padding: 8px 16px;
+      margin: 8px auto 0 auto;
+    }
+    &__small-button-icon {
+      width: 24px;
+      margin-right: 8px;
+    }
+    &__description-box {
+      width: 320px;
+      padding: 16px;
+      margin: 16px auto;
+      background-color: #F7F2E5;
+      border-radius: 8px;
+    }
+    &__description-box-title {
+      font-size: 24px;
+    }
+    &__description-box-text {
+      font-size: 18px;
+    }
+    &__iphone-demo {
+      width: 200px;
+    }
+    &__image-selector {
+      display: none;
+    }
+    &__image-preview {
+      background-color: #F7F2E5;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 0 16px;
+    }
+    &__image-preview-image {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+  }
+
   .wrapper {
     margin: 0px;
     width: 100%;

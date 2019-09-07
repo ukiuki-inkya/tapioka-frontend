@@ -2,7 +2,7 @@ export const getConfig = () => {
   return {
     appName: 'aaa',
     api: {
-      endpoint: 'http://localhost',
+      endpoint: 'https://adsumo.serveo.net',
       urls: {
         sendImage: '/tapis'
       }
