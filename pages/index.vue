@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="home-container">
     <h1 class="home__title" @click="navigateTop">
       <img class="home__title-image" src="~/assets/icons/logo.png" alt="タピオカ診断">
       タピオカ診断
@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .container {
+  .home-container {
     text-align: center;
     padding-bottom: 80px;
     min-height: 100vh;

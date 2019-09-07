@@ -59,7 +59,7 @@ export default {
         yaxis: {
           show: false,
           min: 0.0,
-          max: 1.0
+          max: 0.5
         }
       },
       series: []
