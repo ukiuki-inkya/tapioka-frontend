@@ -8,9 +8,9 @@
     <div v-if="!image">
       <div class="home__description-box">
         <h2 class="home__description-box-title">
-          こんなことできるよ
+          タピオカの声がきけるよ
         </h2>
-        <span class="home__description-box-text">みたいなことなんか簡潔に<br>書きたいかも</span>
+        <span class="home__description-box-text">飲まれてしまうタピオカの<br>気持ちを知ってみよう</span>
       </div>
       <img class="home__iphone-demo" src="~/assets/images/iphone-demo.png" alt="">
       <label for="image-selector" class="home__large-button">
@@ -167,6 +167,7 @@ export default {
     }
     &__description-box-text {
       font-size: 18px;
+      margin-top: 8px;
     }
     &__iphone-demo {
       width: 200px;
