@@ -57,7 +57,9 @@ export default {
           categories: ['やさしい', '冷静', 'うちき', 'ナルシスト', '元気']
         },
         yaxis: {
-          show: false
+          show: false,
+          min: 0.0,
+          max: 1.0
         }
       },
       series: []
