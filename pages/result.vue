@@ -10,7 +10,8 @@ export default {
   data() {
     return {
       canvas: null,
-      ctx: null
+      ctx: null,
+      tapiokas: []
     }
   },
 
@@ -18,7 +19,9 @@ export default {
     this.canvas = this.$refs.canvas
     this.ctx = this.canvas.getContext('2d')
 
-    this.drawCup()
+    this.tapiokas.push({ x: 40, y: 30, radius: 10 })
+    this.tapiokas.push({ x: 30, y: 90, radius: 10 })
+    this.loop()
   },
 
   methods: {
@@ -31,10 +34,22 @@ export default {
       this.ctx.closePath()
       this.ctx.stroke()
     },
-    draw() {
+
+    loop(timestamp) {
+      this.ctx.clearRect(0, 0, 400, 730)
+      this.drawCup()
+
+      for (const t of this.tapiokas) {
+        // t.x += 1
+        this.drawTapioka(t)
+      }
+      window.requestAnimationFrame(ts => this.loop(ts))
+    },
+
+    drawTapioka({ x, y, radius }) {
       this.ctx.beginPath()
-      this.ctx.clearRect(0, 0, 200, 200)
-      this.ctx.arc(100, 100, 10, 0, Math.PI * 2)
+      // this.ctx.fillStyle = 'rgb(0, 0, 0)'
+      this.ctx.arc(x, y, radius, 0, Math.PI * 2)
       this.ctx.fill()
     }
   }
