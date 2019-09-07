@@ -1,19 +1,26 @@
 <template>
-  <div class="wrapper">
-    <canvas
-      id="canvas"
-      ref="canvas"
-      class="canvas"
-      width="400px"
-      height="730px"
-      @click="onCanvasClick"
-    />
+  <div>
+    <apexchart width="500" type="radar" :options="options" :series="series" />
+    <div class="wrapper">
+      <canvas
+        id="canvas"
+        ref="canvas"
+        class="canvas"
+        width="400px"
+        height="730px"
+        @click="onCanvasClick"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import VueApexCharts from 'vue-apexcharts'
 
+export default {
+  components: {
+    apexchart: VueApexCharts
+  },
   data() {
     return {
       canvas: null,
@@ -35,7 +42,20 @@ export default {
       },
       maxRadius: 25,
       minRadius: 10,
-      dRadius: 2
+      dRadius: 2,
+
+      options: {
+        chart: {
+          id: 'vuechart-example'
+        },
+        xaxis: {
+          categories: ['やさしい', '冷静', 'うちき', 'ナルシスト', '元気']
+        }
+      },
+      series: [{
+        name: 'series-1',
+        data: [0.3, 0.1, 0.1, 0.3, 0.2]
+      }]
     }
   },
 
@@ -51,8 +71,11 @@ export default {
   methods: {
     initTapiokas() {
       this.tapiokas = []
-      this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: '僕を食べて元気になってね', color: 'black' })
+      this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: '', color: 'black' })
       this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'こんばんは', color: 'black' })
+      this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
+      this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
+      this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
       this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
       this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
       this.tapiokas.push({ x: this.randX(), y: this.randY(), radius: 10, velocity: this.dRadius, serif: 'おはよう', color: 'black' })
@@ -105,10 +128,14 @@ export default {
     },
 
     onTapiokaClick(tapioka) {
+      const list = this.$store.state.uchiki.serifList
+      console.log(list)
+      const serif = list[Math.floor(Math.random() * (list.length - 1))]
+      console.log(serif)
       const src = tapioka.color
       tapioka.color = 'red'
       const ssu = new SpeechSynthesisUtterance()
-      ssu.text = tapioka.serif
+      ssu.text = serif
       ssu.lang = 'ja-JP'
       ssu.onend = () => {
         tapioka.color = src
