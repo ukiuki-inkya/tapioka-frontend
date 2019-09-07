@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart width="500" type="radar" :options="options" :series="series" />
+    <apexchart width="400px" height="400px" type="radar" :options="options" :series="series" />
     <div class="wrapper">
       <canvas
         id="canvas"
@@ -50,12 +50,12 @@ export default {
         },
         xaxis: {
           categories: ['やさしい', '冷静', 'うちき', 'ナルシスト', '元気']
+        },
+        yaxis: {
+          show: false
         }
       },
-      series: [{
-        name: 'series-1',
-        data: [0.3, 0.1, 0.1, 0.3, 0.2]
-      }]
+      series: []
     }
   },
 
@@ -63,6 +63,17 @@ export default {
     this.canvas = this.$refs.canvas
     this.ctx = this.canvas.getContext('2d')
 
+    console.log(this.$store.state.tapis.result)
+    this.series.push({
+      name: 'tapioka',
+      data: [
+        this.$store.state.tapis.result.yasashi,
+        this.$store.state.tapis.result.reisei,
+        this.$store.state.tapis.result.uchiki,
+        this.$store.state.tapis.result.narushisuto,
+        this.$store.state.tapis.result.genki
+      ]
+    })
     this.initTapiokas()
 
     this.loop()
