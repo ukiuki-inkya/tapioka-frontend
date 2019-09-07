@@ -7,7 +7,9 @@
 
     <div v-if="!image">
       <div class="home__description-box">
-        <h2 class="home__description-box-title">こんなことできるよ</h2>
+        <h2 class="home__description-box-title">
+          こんなことできるよ
+        </h2>
         <span class="home__description-box-text">みたいなことなんか簡潔に<br>書きたいかも</span>
       </div>
       <img class="home__iphone-demo" src="~/assets/images/iphone-demo.png" alt="">
@@ -31,7 +33,7 @@
         診断する
       </button>
     </div>
-    <div class="home__background-bottom"></div>
+    <div class="home__background-bottom" />
   </section>
 </template>
 
@@ -77,8 +79,11 @@ export default {
 
       this.$axios.post(url, { image: this.image })
         .then((response) => {
-          this.$store.commit('setResultState', response)
+          console.log(response)
+          this.$store.commit('tapis/setResultState', response)
           this.$router.push('/result')
+        }).catch((err) => {
+          console.error(err)
         })
     }
   }

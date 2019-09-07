@@ -10,6 +10,9 @@ export const state = () => ({
 
 export const mutations = {
   setResultState(state, result) {
+    console.log('storestore')
+    console.log(result)
+    console.log(result.data)
     state.result = result.data
   }
 }
