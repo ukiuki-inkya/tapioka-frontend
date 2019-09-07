@@ -31,6 +31,7 @@
         診断する
       </button>
     </div>
+    <div class="home__background-bottom"></div>
   </section>
 </template>
 
@@ -88,6 +89,7 @@ export default {
   .container {
     text-align: center;
     padding-bottom: 80px;
+    min-height: 100%;
   }
   .home {
     &__title {
@@ -168,6 +170,15 @@ export default {
       width: 100%;
       border-radius: 4px;
     }
-
+    &__background-bottom {
+      position: absolute;
+      bottom: 0;
+      background-image: url('~assets/images/background-bottom.png');
+      background-position: bottom left;
+      background-repeat: repeat-x;
+      background-size: 320px 183px;
+      height: 188px;
+      width: 100%;
+    }
   }
 </style>
