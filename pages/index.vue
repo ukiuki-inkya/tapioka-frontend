@@ -18,7 +18,7 @@
       </label>
     </div>
 
-    <div v-else>
+    <div v-else class="home__image-selected">
       <div class="home__image-preview">
         <img class="home__image-preview-image" :src="image" alt="selected image">
         <button class="home__small-button" @click="clearImage">
@@ -153,6 +153,10 @@ export default {
     }
     &__image-selector {
       display: none;
+    }
+    &__image-selected {
+      max-width: 480px;
+      margin: 0 auto;
     }
     &__image-preview {
       background-color: #F7F2E5;
