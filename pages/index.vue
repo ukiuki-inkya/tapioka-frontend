@@ -104,7 +104,7 @@ export default {
     text-align: center;
     padding-bottom: 80px;
     min-height: 100vh;
-    background-image: url(/_nuxt/assets/images/background-bottom.png);
+    background-image: url(~assets/images/background-bottom.png);
     background-position: bottom left;
     background-repeat: repeat-x;
     background-size: 320px 183px;
