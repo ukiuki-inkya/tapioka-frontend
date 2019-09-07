@@ -1,68 +1,76 @@
 <template>
   <section class="container">
     <div>
-      <logo />
       <h1 class="title">
-        tapioka-frontend
+        タピオカ診断
       </h1>
-      <h2 class="subtitle">
-        My superior Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
+
+      <div v-if="!image">
+        <input ref="imageSelector" type="file" class="custom-file-input" @change="previewImage">
+      </div>
+
+      <div v-else>
+        <div class="image-preview">
+          <img :src="image" alt="selected image">
+        </div>
+        <button @click="clearImage">
+          えらびなおす
+        </button>
+        <button @click="sendImage">
+          アップロード
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import { getConfig } from '../config/config'
 
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      image: ''
+    }
+  },
+  methods: {
+    previewImage: function () {
+      const selectedImage = this.$refs.imageSelector.files[0]
+
+      if (!selectedImage) {
+        return
+      }
+
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+
+      toBase64(selectedImage)
+        .then((encodedImage) => {
+          this.image = encodedImage
+        })
+        .catch(() => alert('画像の取得に失敗しました'))
+    },
+    clearImage: function () {
+      this.image = ''
+    },
+    sendImage: function () {
+      const config = getConfig()
+      const url = config.api.endpoint + config.api.urls.sendImage
+
+      this.$axios.post(url, { image: this.image })
+        .then((response) => {
+          this.$store.commit('setResultState', response)
+          alert('upload complete')
+          // TODO: ページ遷移する this.$router.push('')
+        })
+    }
   }
 }
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
