@@ -28,10 +28,15 @@
           えらびなおす
         </button>
       </div>
-      <button class="home__large-button" @click="sendImage">
-        <img class="home__large-button-icon" src="~/assets/icons/upload_white.png" alt="写真を選択する">
-        診断する
-      </button>
+      <template v-if="isUploading">
+        <span>アップロードしています</span>
+      </template>
+      <template v-else>
+        <button class="home__large-button" @click="sendImage">
+          <img class="home__large-button-icon" src="~/assets/icons/upload_white.png" alt="写真を選択する">
+          診断する
+        </button>
+      </template>
     </div>
     <div class="home__background-bottom" />
   </section>
@@ -43,7 +48,8 @@ import { getConfig } from '../config/config'
 export default {
   data() {
     return {
-      image: ''
+      image: '',
+      isUploading: false
     }
   },
   methods: {
@@ -77,6 +83,8 @@ export default {
       const config = getConfig()
       const url = config.api.endpoint + config.api.urls.sendImage
 
+      this.isUploading = true
+
       this.$axios.post(url, { image: this.image })
         .then((response) => {
           console.log(response)
@@ -84,6 +92,8 @@ export default {
           this.$router.push('/result')
         }).catch((err) => {
           console.error(err)
+        }).finally(() => {
+          this.isUploading = false
         })
     }
   }
